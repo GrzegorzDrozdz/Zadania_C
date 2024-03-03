@@ -1,42 +1,54 @@
 #include <stdio.h>
 #include <string.h>
 
+#define MAX_CONTACTS 100
+
 typedef struct
 {
     char imie[100];
-    char nazwisko [100];
+    char nazwisko[100];
     char numer_telefonu[14];
 } Contact;
 
-Contact ksiazka_adresowa[100];
-int liczba_kontaktow = 0;
+Contact ksiazka_adresowa[MAX_CONTACTS] = {
+        {"Jan", "Kowalski", "111111111"},
+        {"Marek", "Nowak", "222222222"},
+        {"Piotr", "Kowal", "333333333"},
+        {"Ola", "Dabrowska", "444444444"},
+        {"Robert", "Lewandowski", "555555555"}
+};
+int liczba_kontaktow = 5;
 
-void dodaj()
+void dodaj(Contact *ksiazka_adresowa, int *liczba_kontaktow)
 {
-    if (liczba_kontaktow < 100)
+    if (*liczba_kontaktow < MAX_CONTACTS)
     {
-        Contact nowy_kontakt;
+        Contact *nowy_kontakt = &ksiazka_adresowa[*liczba_kontaktow];
         printf("Podaj imie: ");
-        scanf("%s", nowy_kontakt.imie);
+        scanf("%s", nowy_kontakt->imie);
 
         printf("Podaj nazwisko: ");
-        scanf("%s", nowy_kontakt.nazwisko);
+        scanf("%s", nowy_kontakt->nazwisko);
 
         printf("Podaj nr tel: ");
-        scanf("%s", nowy_kontakt.numer_telefonu);
+        scanf("%s", nowy_kontakt->numer_telefonu);
 
-        ksiazka_adresowa[liczba_kontaktow++] = nowy_kontakt;
+        (*liczba_kontaktow)++;
 
         printf("Kontakt dodany.\n");
     }
     else
     {
-        printf("osiagnieto max kontaktow .\n");
+        printf("Osiagnieto maksymalna liczbe kontaktow.\n");
     }
 }
 
-void znajdzNazwisko(char nazwisko[])
+void znajdzNazwisko(Contact *ksiazka_adresowa, int liczba_kontaktow)
 {
+    char nazwisko[100];
+    printf("Podaj nazwisko kontaktu do wyszukania: ");
+    scanf("%s", nazwisko);
+
     int znaleziono = 0;
     for (int i = 0; i < liczba_kontaktow; i++)
     {
@@ -49,35 +61,41 @@ void znajdzNazwisko(char nazwisko[])
             znaleziono = 1;
         }
     }
-    if (znaleziono==0)
+    if (znaleziono == 0)
     {
         printf("Nie znaleziono.\n");
     }
 }
 
-void usunPoNazwisku(char nazwisko[])
+void usunPoNazwisku(Contact *ksiazka_adresowa, int *liczba_kontaktow)
 {
+    char nazwisko[100];
+    printf("Podaj nazwisko kontaktu do usuniecia: ");
+    scanf("%s", nazwisko);
+
     int znaleziono = 0;
-    for (int i = 0; i < liczba_kontaktow; i++)
+    for (int i = 0; i < *liczba_kontaktow; i++)
     {
         if (strcmp(ksiazka_adresowa[i].nazwisko, nazwisko) == 0)
         {
-            for (int j = i; j < liczba_kontaktow - 1; j++) {
+            for (int j = i; j < *liczba_kontaktow - 1; j++)
+            {
                 ksiazka_adresowa[j] = ksiazka_adresowa[j + 1];
             }
-            liczba_kontaktow--;
+            (*liczba_kontaktow)--;
             printf("Kontakt o nazwisku %s usunieto.\n", nazwisko);
             znaleziono = 1;
             break;
         }
     }
-    if (znaleziono==0)
+    if (znaleziono == 0)
     {
-        printf("Nie znaleziono\n");
+        printf("Nie znaleziono.\n");
     }
 }
 
-void wypiszKontakty() {
+void wypiszKontakty(Contact *ksiazka_adresowa, int liczba_kontaktow)
+{
     printf("Ksiazka adresowa:\n");
     for (int i = 0; i < liczba_kontaktow; i++)
     {
@@ -88,9 +106,9 @@ void wypiszKontakty() {
     }
 }
 
-int main() {
+int main()
+{
     int opcja;
-    char nazwisko[100];
 
     while (1)
     {
@@ -103,22 +121,19 @@ int main() {
         printf("Wybierz opcje: ");
         scanf("%d", &opcja);
 
-        switch (opcja) {
+        switch (opcja)
+        {
             case 1:
-                dodaj();
+                dodaj(ksiazka_adresowa, &liczba_kontaktow);
                 break;
             case 2:
-                printf("Podaj nazwisko kontaktu do wyszukania: ");
-                scanf("%s", nazwisko);
-                znajdzNazwisko(nazwisko);
+                znajdzNazwisko(ksiazka_adresowa, liczba_kontaktow);
                 break;
             case 3:
-                printf("Podaj nazwisko kontaktu do usuniecia: ");
-                scanf("%s", nazwisko);
-                usunPoNazwisku(nazwisko);
+                usunPoNazwisku(ksiazka_adresowa, &liczba_kontaktow);
                 break;
             case 4:
-                wypiszKontakty();
+                wypiszKontakty(ksiazka_adresowa, liczba_kontaktow);
                 break;
             case 5:
                 printf("Koniec programu.\n");
