@@ -39,7 +39,7 @@ int main()
     Point p1 = {5, 15};
     printf("wspolrzedne: (%d, %d)\n", p1.x, p1.y);
 
-    Nowe_xy(&p1, 5, 9);
+    Nowe_xy(&p1, 6, 9);
 
     printf("Nowe wspolrzedne: (%d, %d)\n", p1.x, p1.y);
 
