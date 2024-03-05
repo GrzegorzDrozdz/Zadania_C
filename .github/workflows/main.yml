@@ -1,0 +1,36 @@
+name: Compile C Projects
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Clang
+      uses: egor-tensin/setup-clang@v1
+      with:
+        version: latest
+        platform: x64
+    - name: Compile C files
+      run: |
+        chmod +x compile.sh
+        ./compile.sh
+      shell: bash
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: compiled-${{ matrix.os }}
+        path: |
+          **/*.exe
+          **/*
+        if-no-files-found: error
