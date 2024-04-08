@@ -40,14 +40,14 @@ void add_at_index(int index, int value) {
     listElement *prev = NULL;
     int i = 0;
 
-     while (current != NULL && i < index) {
+    while (current != NULL && i < index) {
         prev = current;
         current = current->next;
         i++;
     }
 
     if (current == NULL && i < index) {
-           printf("Indeks przekracza długość listy. Nie dodano elementu.\n");
+        printf("Indeks przekracza długość listy. Nie dodano elementu.\n");
         return;
     }
 
@@ -56,8 +56,14 @@ void add_at_index(int index, int value) {
         fprintf(stderr, "Błąd alokacji pamięci.\n");
         exit(EXIT_FAILURE);
     }
-   prev->next = new_node;
+    new_node->data = value;
     new_node->next = current;
+
+    if (prev != NULL) {
+        prev->next = new_node;
+    } else {
+        head = new_node;
+    }
 }
 
 int main() {
@@ -67,7 +73,7 @@ int main() {
     printf("Lista przed dodaniem elementu na indeksie 1:\n");
     print_list();
 
-     add_at_index(1, 2);
+    add_at_index(1, 2);
 
     printf("Lista po dodaniu elementu na indeksie 1:\n");
     print_list();
