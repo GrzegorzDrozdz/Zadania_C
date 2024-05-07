@@ -55,7 +55,7 @@ int main(){
         if (game.red <= max_red && game.green <= max_green && game.blue <= max_blue) {
             int game_number = extract_game_number(line);
             sum_id += game_number;
-            moc_sum += game.red + game.green + game.blue; // Sumujemy ilości czerwonych, zielonych i niebieskich kostek osobno
+            moc_sum += game.red + game.green + game.blue;
         }
     }
 
