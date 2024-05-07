@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+    // ZADANIE 1 część 1
+
 int main() {
     FILE *file;
     char line[100];
