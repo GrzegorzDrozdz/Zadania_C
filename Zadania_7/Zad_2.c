@@ -3,6 +3,8 @@
 #include <ctype.h>
 #include <string.h>
 
+// ZADANIE 1 część 2
+
 int strToNum(char *str) {
     if (strcmp(str, "zero") == 0) return 0;
     if (strcmp(str, "one") == 0) return 1;
