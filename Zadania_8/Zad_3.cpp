@@ -9,7 +9,7 @@ int extract_game_number(const std::string &line) {
     int game_number = 0;
     size_t pos = line.find("Game");
     if (pos != std::string::npos) {
-        pos += 5; // Skip "Game "
+        pos += 5;
         while (isdigit(line[pos])) {
             game_number = game_number * 10 + (line[pos] - '0');
             pos++;
