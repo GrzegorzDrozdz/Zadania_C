@@ -6,7 +6,7 @@ using namespace std ;
 void displayGameRules() {
     cout << "***GAME RULES***" << endl;
     cout << "-SELECT THE FIGURE YOU WANT TO MAKE A MOVEMENT EG White-(R K Q N B) Black-(r k q n b)" << endl;
-    cout << "-ENTER THE STARTING POSITION OF THIS FIGURE EG (0,0)" << endl;
+    cout << "-ENTER THE STARTING POSITION OF THIS FIGURE EG (height,width)" << endl;
     cout << "-FROM THE MOVEMENT OPTIONS DISPLAYED, SELECT THE MOVEMENT YOU WANT TO MAKE" << endl;
     cout << "GOOD LUCK AND HAVE FUN!" << endl;
 }
@@ -14,7 +14,6 @@ void displayGameRules() {
 
 
 int currentPlayer=0;
-int percentage=60;
 int move=0;
 const int boardSize = 8;
 
